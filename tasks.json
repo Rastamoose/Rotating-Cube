@@ -1,0 +1,98 @@
+//WINDOWS TASK
+// {
+//   "version": "2.0.0",
+//   "type": "shell",        //opens in default shell
+//   "request": "launch",    
+//   "presentation": {
+//     "panel": "shared",  //terminal is shared with other tasks
+//     "showReuseMessage": false,    //close terminal message not shown
+//   },
+//   "command": "iex",   //read commands from a string
+//   "tasks":[
+//     {
+//       "label": "Build debug",
+//       "args": [
+//         "g++ -c src/*.cpp -g -Wall -m64 -I include -I C:/SDL2-w64/include"
+//       ]
+//     },
+//     {
+//       "label": "Build release",
+//       "args": [
+//         "g++ -c src/*.cpp -O3 -Wall -m64 -I include -I C:/SDL2-w64/include"
+//       ]
+//     },    
+//     {
+//       "label": "Link debug",
+//       "args": [
+//         "g++ *.o -o bin/debug/windows/main -L C:/SDL2-w64/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image"
+//       ]
+//     },
+//     {
+//       "label": "Link release",
+//       "args": [
+//         "g++ *.o -o bin/release/windows/main -s -L C:/SDL2-w64/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image"
+//       ]
+//     },    
+//     {
+//       "label": "Clean",
+//       "args":[
+//         "rm *.o"
+//       ]
+//     },
+//     {
+//       "label": "Start debug",
+//       "args": [
+//         "./bin/debug/windows/main.exe"
+//       ]
+//     },
+//     {
+//       "label": "Compile debug",
+//       "group": "build",
+//       "dependsOrder": "sequence",
+//       "dependsOn": [
+//         "Build debug",
+//         "Link debug",
+//         "Clean",
+//         "Start debug"
+//       ],
+//       "problemMatcher": []
+//     },
+//     {
+//       "label": "Compile release",
+//       "group": "build",
+//       "dependsOrder": "sequence",
+//       "dependsOn": [
+//         "Build release",
+//         "Link release",
+//         "Clean"
+//       ],
+//       "problemMatcher": []
+//     }
+//   ]
+// }
+
+//LINUX TASK
+{
+  "version": "2.0.0",
+  "type": "shell",        //opens in default shell
+  "request": "launch",  
+  "presentation": {
+    "clear": true
+  },  
+  "tasks": [
+    {
+      "label": "Build debug",
+      "command": "g++ -c src/*.cpp -std=c++17 -m64 -g -Wall -I include && g++ *.o -o bin/debug/linux/main -lSDL2 -lSDL2_image && ./bin/debug/linux/main",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Build release",
+      "command": "g++ -c src/*.cpp -std=c++17 -m64 -O3 -Wall -I include && g++ *.o -o bin/release/linux/main -lSDL2 -lSDL2_image && ./bin/release/linux/main"
+    }
+  ]
+
+}
